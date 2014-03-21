@@ -61,10 +61,14 @@ int main(){
 
 uberzahl RED(uberzahl T, uberzahl R, uberzahl rInverse, uberzahl M, long long int n){
 
-	uberzahl MPrime = -(M.inverse(R));
+	uberzahl MPrime = R - (M.inverse(R));
     uberzahl m = (T*MPrime);
-    m=m<<(m.bitLength()-n);
-    m = m >> n;
+    
+    //m=m<<(m.bitLength()-n);
+    //m = m >> n;
+    
+    m = m & (R-1);
+    
     uberzahl t((T+m*M)/R);
     if(t>=M) return (t-M);
     else return t;
