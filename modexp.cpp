@@ -7,7 +7,7 @@ uberzahl modexp1(uberzahl n, uberzahl k, uberzahl m){
 // original modexp: n^k mod m
   uberzahl a(1);
   while(k > uberzahl(2)){
-    if (k & uberzahl(1) == 0){
+    if (k % 2 == 0){
       k = k >> 1;
       n = (n*n)%m;
     }
@@ -41,7 +41,7 @@ uberzahl modexp3(long long int n, uberzahl a, uberzahl k, uberzahl M){
     uberzahl multiplyStep(1);
     
     while( k > uberzahl(2)) {
-        if (k & uberzahl(1) == 0) {
+        if (k % 2 == 0) {
             k = k >> 1;
             a = (a*a*rInverse) % M;
         }
@@ -63,9 +63,11 @@ uberzahl Red1(uberzahl T, uberzahl rInverse, uberzahl M) {
     return T * rInverse % M;
 }
 
-uberzahl RED(uberzahl T, uberzahl r, uberzahl rInverse, uberzahl M){
+uberzahl RED(uberzahl T, uberzahl r, uberzahl rInverse, uberzahl M, uberzahl n){
 
-	uberzahl MInverse = ;
-	uberzahl m = (T*MInverse)
-
+	uberzahl MPrime = -(M.inverse(R));
+    uberzahl m = (T*MPrime) >> n;
+    uberzahl t = (T+m*M)/R
+    if(t>=M) return (t-M);
+    else return t;
 }
