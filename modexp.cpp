@@ -7,7 +7,7 @@ uberzahl modexp1(uberzahl n, uberzahl k, uberzahl m){
 // original modexp: n^k mod m
   uberzahl a(1);
   while(k > uberzahl(2)){
-    if (k%2 == 0){
+    if (k & 1 == 0){
       k = k >> 1;
       n = (n*n)%m;
     }
@@ -26,7 +26,9 @@ uberzahl modexp2(uberzahl a, uberzahl k, uberzahl p, uberzahl q){
     return a_p * q * q.inverse(p) + a_q * p * p.inverse(q);
 }
 
-uberzahl modexp3(uberzahl n, uberzahl a, uberzahl k, uberzahl M){
+
+
+uberzahl modexp3(long long int n, uberzahl a, uberzahl k, uberzahl M){
     //Version with Montgomery Residues + Reductions
     uberzahl r(1);
     r = r << n;
@@ -34,12 +36,12 @@ uberzahl modexp3(uberzahl n, uberzahl a, uberzahl k, uberzahl M){
     a = a * r % M;
     
     uberzahl rInverse;
-    rInverse = inverse(r);
+    rInverse = r.inverse(M);
     
     uberzahl multiplyStep(1);
     
-    while( k > uberzhal(2)) {
-        if (k % 2 == 0) {
+    while( k > uberzahl(2)) {
+        if (k & 1 == 0) {
             k = k >> 1;
             a = (a*a*rInverse) % M;
         }
@@ -59,4 +61,11 @@ int main(){
 
 uberzahl Red(uberzahl T, uberzahl rInverse, uberzahl M) {
     return T * rInverse % M;
+}
+
+uberzahl RED(uberzahl T, uberzahl r, uberzahl rInverse, uberzahl M){
+
+	uberzahl MInverse = r*rInverse/M;
+	uberzahl m = T*MInverse)
+
 }
