@@ -78,7 +78,7 @@ int main(){
     for(int i=0; i<3; i++){
     //Run three trials and average per timing run to account for clock resolution
         clock_t start = clock();
-        cout << modexp1(uberzahl(13), uberzahl(j), uberzahl(881*883)) << endl;
+        cout << modexp1(uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
         clock_t end = clock();
         cout<<"Trial "<<i<<" time elapsed: "<<(end-start)*((float)1000)/CLOCKS_PER_SEC<<"millise}conds"<<endl;
             
