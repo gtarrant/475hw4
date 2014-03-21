@@ -45,7 +45,7 @@ uberzahl modexp3(long long int n, uberzahl a, uberzahl k, uberzahl M){
     a = a * r % M;
     
     uberzahl MPrime(M);
-    MPrime = MPrime.inverse(r);
+    MPrime = r - MPrime.inverse(r);
     
     uberzahl rInverse(r);
     rInverse = r.inverse(M);
