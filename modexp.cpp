@@ -13,7 +13,7 @@ uberzahl RED(uberzahl T, uberzahl R, uberzahl MPrime, uberzahl M, long long int 
 }
 
 uberzahl modexp1(uberzahl n, uberzahl k, uberzahl m){
-// original modexp: n^k mod m
+// original modexp: n^k mod mR
   uberzahl a(1);
   while(k > uberzahl(2)){
     if (k % 2 == 0){
@@ -67,20 +67,25 @@ uberzahl modexp3(long long int n, uberzahl a, uberzahl k, uberzahl M){
         }
     }
     //return (multiplyStep*a*a*rInverse*rInverse*rInverse) % M;
-    return RED(RED(a*multiplyStep, r, MPrime, M, n) * a, r, MPrime, M, n);
+    return RED(RED(RED(a*multiplyStep, r, MPrime, M, n) * a, r, MPrime, M, n), r, MPrime, M, n);
 }
-
-
 
 int main(){
     
+    
+    float run_time = 0;
     for(int i=0; i<3; i++){
-    //Run three trials and average per trial type
+    //Run three trials and average per timing run to account for clock resolution
         clock_t start = clock();
         cout << modexp3(21, uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
         clock_t end = clock();
-        cout<<"Time elapsed: "<<(end-start)*((float)1000)/CLOCKS_PER_SEC<<"millise}conds"<<endl;
+        cout<<"Trial "<<i<<" time elapsed: "<<(end-start)*((float)1000)/CLOCKS_PER_SEC<<"millise}conds"<<endl;
+        
+        run_time+=runtime;
     }
+    cout<<"Trial Average "<<run_time<<endl;
+    run_time=0;
+    
     //check consistency
     cout << modexp1(uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
     cout << modexp2(uberzahl(13), uberzahl(1023), uberzahl(881), uberzahl(883)) << endl;
