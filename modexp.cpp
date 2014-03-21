@@ -6,7 +6,7 @@ using namespace std;
 
 uberzahl RED(const uberzahl &T, const uberzahl &R, const uberzahl &MPrime, const uberzahl &M, const long long int &n){
     uberzahl m(T*MPrime);
-    m = m & (R-1);
+    m = m & (R-uberzahl(1));
     uberzahl t((T+m*M) >> n);
     if(t>=M) return (t-M);
     else return t;
