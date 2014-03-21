@@ -1,10 +1,12 @@
 #include "uberzahl.h"
 #include <iostream>
 #include <ctime>
+#include <cassert>
 
 using namespace std;
 
 uberzahl RED(const uberzahl &T, const uberzahl &R, const uberzahl &MPrime, const uberzahl &M, const long long int &n){
+    assert(T < )
     uberzahl m(T*MPrime);
     m = m & (R-uberzahl(1));
     uberzahl t((T+m*M) >> n);
