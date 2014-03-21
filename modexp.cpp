@@ -73,20 +73,21 @@ uberzahl modexp3(long long int n, uberzahl a, uberzahl k, uberzahl M){
 int main(){
     //---// Original modexp time-trial //---//
     float run_time = 0;
-    uberzahl m
     
-    run_time=0;
-    for(int i=0; i<3; i++){
-    //Run three trials and average per timing run to account for clock resolution
-        clock_t start = clock();
-        cout << modexp1(uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
-        clock_t end = clock();
-        cout<<"Trial "<<i<<" time elapsed: "<<(end-start)*((float)1000)/CLOCKS_PER_SEC<<"millise}conds"<<endl;
-        
-        run_time+=run_time;
+    for(int j=1023; j<=1025; j++){
+        run_time=0;
+        for(int i=0; i<3; i++){
+        //Run three trials and average per timing run to account for clock resolution
+            clock_t start = clock();
+            cout << modexp1(uberzahl(13), uberzahl(j), uberzahl(881*883)) << endl;
+            clock_t end = clock();
+            cout<<"Trial "<<i<<" time elapsed: "<<(end-start)*((float)1000)/CLOCKS_PER_SEC<<"millise}conds"<<endl;
+            
+            run_time+=run_time;
+        }
+        cout<<"Trial Average "<<run_time<<endl;
+        run_time=0;
     }
-    cout<<"Trial Average "<<run_time<<endl;
-    run_time=0;
     
     run_time = 0;
     for(int i=0; i<3; i++){
