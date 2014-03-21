@@ -59,15 +59,13 @@ int main(){
   //cout << modexp1(uberzahl(2), uberzahl(10), uberzahl(1000)) << endl;
 }
 
-uberzahl Red1(uberzahl T, uberzahl rInverse, uberzahl M) {
-    return T * rInverse % M;
-}
-
-uberzahl RED(uberzahl T, uberzahl r, uberzahl rInverse, uberzahl M, uberzahl n){
+uberzahl RED(uberzahl T, uberzahl R, uberzahl rInverse, uberzahl M, long long int n){
 
 	uberzahl MPrime = -(M.inverse(R));
-    uberzahl m = (T*MPrime) >> n;
-    uberzahl t = (T+m*M)/R
+    uberzahl m = (T*MPrime);
+    m=m<<(m.bitLength()-n);
+    m = m >> n;
+    uberzahl t((T+m*M)/R);
     if(t>=M) return (t-M);
     else return t;
 }
