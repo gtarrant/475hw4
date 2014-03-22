@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ctime>
 #include <cassert>
+#include <cstdlib>
 
 using namespace std;
 
@@ -45,14 +46,11 @@ uberzahl modexp3(long long int n, uberzahl a, uberzahl k, uberzahl M){
     
     a = a * r % M;
     
-    uberzahl MPrime(M);
-    MPrime = r - MPrime.inverse(r);
+    uberzahl MPrime = r - M.inverse(r);
     
-    uberzahl rInverse(r);
-    rInverse = r.inverse(M);
+    uberzahl rInverse = r.inverse(M);
     
-    uberzahl multiplyStep(1);
-    multiplyStep = multiplyStep * r % M;
+    uberzahl multiplyStep = r % M;
     
     while( k > uberzahl(2)) {
         if (k % 2 == 0) {
@@ -79,40 +77,7 @@ uberzahl modexp4(long long int n, uberzahl a, uberzahl k, uberzahl p, uberzahl q
   
 }
 
-int main(){
-    
-    
-  /*
-    //---// Original modexp time-trial //---//
-    float run_time = 0;
-    
-    run_time=0;
-    for(int i=0; i<3; i++){
-    //Run three trials and average per timing run to account for clock resolution
-        clock_t start = clock();
-        cout << modexp1(uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
-        clock_t end = clock();
-        cout<<"Trial "<<i<<" time elapsed: "<<(end-start)*((float)1000)/CLOCKS_PER_SEC<<"millise}conds"<<endl;
-            
-        run_time+=run_time;
-    }
-    cout<<"Trial Average "<<run_time<<endl;
-    run_time=0;
-    
-    run_time = 0;
-    for(int i=0; i<3; i++){
-    //Run three trials and average per timing run to account for clock resolution
-        clock_t start = clock();
-        cout << modexp3(21, uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
-        clock_t end = clock();
-        cout<<"Trial "<<i<<" time elapsed: "<<(end-start)*((float)1000)/CLOCKS_PER_SEC<<"millise}conds"<<endl;
-        
-        run_time+=run_time;
-    }
-    cout<<"Trial Average "<<run_time<<endl;
-    run_time=0;
-    */
-  
+int main(int argc, char ** argv){
     
     //check consistency
     cout << "\ncheck\n";
@@ -130,5 +95,31 @@ int main(){
     cout << modexp2(uberzahl(13), uberzahl(1025), uberzahl(881), uberzahl(883)) << endl;
     cout << modexp3(100, uberzahl(13), uberzahl(1025), uberzahl(881*883)) << endl;
     cout << modexp4(100, uberzahl(13), uberzahl(1025), uberzahl(881), uberzahl(883)) << endl;
+    
+    //performance test
+    srand(atoi(argv[3]));
+    int fn = atoi(argv[1]);
+    int bits = atoi(argv[2]);
+    
+    uberzahl base, exp;
+    base.random(bits/2);
+    exp.random(bits/2);
+    uberzahl p = nextprime(base, 50);
+    uberzahl q = nextprime(p, 50);
+    
+    switch (fn) {
+        case 1:
+            modexp1(base, exp, p*q);
+            break;
+        case 2:
+            modexp2(base, exp, p, q);
+            break;
+        case 3:
+            modexp3(bits+1, base, exp, p*q);
+            break;
+        case 4:
+            modexp4(bits+1, base, exp, p, q);
+            break;
+    }
     
 }
