@@ -6,10 +6,10 @@
 using namespace std;
 
 uberzahl RED(const uberzahl &T, const uberzahl &R, const uberzahl &MPrime, const uberzahl &M, const long long int &n){
-    assert(T < )
     uberzahl m(T*MPrime);
     m = m & (R-uberzahl(1));
     uberzahl t((T+m*M) >> n);
+    
     if(t>=M) return (t-M);
     else return t;
 }
@@ -37,10 +37,9 @@ uberzahl modexp2(uberzahl a, uberzahl k, uberzahl p, uberzahl q){
     return a_q + q * ((q.inverse(p)*(a_p - a_q))%p);
 }
 
-
-
 uberzahl modexp3(long long int n, uberzahl a, uberzahl k, uberzahl M){
     //Version with Montgomery Residues + Reductions
+    //a^k mod M
     uberzahl r(1);
     r = r << n;
     
@@ -53,6 +52,7 @@ uberzahl modexp3(long long int n, uberzahl a, uberzahl k, uberzahl M){
     rInverse = r.inverse(M);
     
     uberzahl multiplyStep(1);
+    multiplyStep = multiplyStep * r % M;
     
     while( k > uberzahl(2)) {
         if (k % 2 == 0) {
@@ -72,7 +72,17 @@ uberzahl modexp3(long long int n, uberzahl a, uberzahl k, uberzahl M){
     return RED(RED(RED(a*multiplyStep, r, MPrime, M, n) * a, r, MPrime, M, n), r, MPrime, M, n);
 }
 
+uberzahl modexp4(long long int n, uberzahl a, uberzahl k, uberzahl p, uberzahl q) {
+    uberzahl a_p = modexp3(n, a, k % (p-uberzahl(1)), p);
+    uberzahl a_q = modexp3(n, a, k % (q-uberzahl(1)), q);
+    return a_q + q * ((q.inverse(p)*(a_p - a_q))%p);
+  
+}
+
 int main(){
+    
+    
+  /*
     //---// Original modexp time-trial //---//
     float run_time = 0;
     
@@ -101,9 +111,24 @@ int main(){
     }
     cout<<"Trial Average "<<run_time<<endl;
     run_time=0;
+    */
+  
     
     //check consistency
+    cout << "\ncheck\n";
     cout << modexp1(uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
     cout << modexp2(uberzahl(13), uberzahl(1023), uberzahl(881), uberzahl(883)) << endl;
-    cout << modexp3(21, uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
+    cout << modexp3(100, uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
+    cout << modexp4(100, uberzahl(13), uberzahl(1023), uberzahl(881), uberzahl(883)) << endl;
+    
+    cout << modexp1(uberzahl(13), uberzahl(1024), uberzahl(881*883)) << endl;
+    cout << modexp2(uberzahl(13), uberzahl(1024), uberzahl(881), uberzahl(883)) << endl;
+    cout << modexp3(100, uberzahl(13), uberzahl(1024), uberzahl(881*883)) << endl;
+    cout << modexp4(100, uberzahl(13), uberzahl(1024), uberzahl(881), uberzahl(883)) << endl;
+	
+    cout << modexp1(uberzahl(13), uberzahl(1025), uberzahl(881*883)) << endl;
+    cout << modexp2(uberzahl(13), uberzahl(1025), uberzahl(881), uberzahl(883)) << endl;
+    cout << modexp3(100, uberzahl(13), uberzahl(1025), uberzahl(881*883)) << endl;
+    cout << modexp4(100, uberzahl(13), uberzahl(1025), uberzahl(881), uberzahl(883)) << endl;
+    
 }
