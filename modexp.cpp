@@ -78,7 +78,7 @@ uberzahl modexp4(long long int n, uberzahl a, uberzahl k, uberzahl p, uberzahl q
 }
 
 int main(int argc, char ** argv){
-    
+   /* 
     //check consistency
     cout << "\ncheck\n";
     cout << modexp1(uberzahl(13), uberzahl(1023), uberzahl(881*883)) << endl;
@@ -95,7 +95,7 @@ int main(int argc, char ** argv){
     cout << modexp2(uberzahl(13), uberzahl(1025), uberzahl(881), uberzahl(883)) << endl;
     cout << modexp3(100, uberzahl(13), uberzahl(1025), uberzahl(881*883)) << endl;
     cout << modexp4(100, uberzahl(13), uberzahl(1025), uberzahl(881), uberzahl(883)) << endl;
-    
+   */ 
     //performance test
     srand(atoi(argv[3]));
     int fn = atoi(argv[1]);
@@ -106,7 +106,14 @@ int main(int argc, char ** argv){
     exp.random(bits/2);
     uberzahl p = nextprime(base, 50);
     uberzahl q = nextprime(p, 50);
-    
+   
+	clock_t start = clock();
+     
+	for (int i = 0; i < 5; ++i){
+
+    base.random(bits/2);
+    exp.random(bits/2);
+
     switch (fn) {
         case 1:
             modexp1(base, exp, p*q);
@@ -121,5 +128,10 @@ int main(int argc, char ** argv){
             modexp4(bits+1, base, exp, p, q);
             break;
     }
+    }
+
+	clock_t end = clock();
+
+	cout << (end-start)*1000/5/CLOCKS_PER_SEC << " ms\n";
     
 }
